@@ -1,0 +1,363 @@
+<app-topnav></app-topnav>
+<div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-3">
+                <div class="ard shadow-1" style="overflow-y: scroll; max-height: 100vh;">
+                    <ul class="list-group" *ngFor="let smartOutlook of outlookResponseValue">
+                        <li class="list-group-items list-group-item-action"
+                            [ngClass]="{'b-left':smartOutlook.IsRead == false, 'b-none': smartOutlook.IsRead == true}">
+                            <a (click)="retrieveEmailInfo(smartOutlook.ConversationId,smartOutlook.Id)"
+                                class="cursor-pointer email-body">
+                                <div class="text-ellipsis p-3">
+                                    <div class="text-ellipsis"
+                                        [ngClass]="{'fw-600':smartOutlook.IsRead == false, 'fw-500': smartOutlook.IsRead == true}">
+                                         <span *ngIf="smartOutlook.Categories[0] == 'Smartsheet'">
+                                            <i class="fa fa-check-circle-o ml-1 mr-2" style="color:rgba(160, 64, 0, 0.658); background: none;" aria-hidden="true"></i>
+                                        </span>{{smartOutlook.From.EmailAddress.Name}}
+                                        <!-- <span *ngIf="smartOutlook.IsRead == true" class="badge badge-success mr-2">Read</span> -->
+                                        <!-- <span *ngIf="smartOutlook.Categories[0] == 'Smartsheet'" class="badge badge-submit">Submitted</span> -->
+                                        <br />
+                                    </div>
+                                    <div class="text-ellipsis"
+                                        [ngClass]="{'font-blue':smartOutlook.IsRead == false, 'font-grey': smartOutlook.IsRead == true}">
+                                        {{smartOutlook.Subject}}<br />
+                                    </div>
+                                    <div class="text-ellipsis" style="font-size: 14px; color: grey">
+                                        {{smartOutlook.BodyPreview}}<br />
+                                    </div>
+                                    <div class="text-ellipsis" *ngIf="smartOutlook.Categories[0] == 'Smartsheet'">
+                                        <!-- <span *ngIf="smartOutlook.IsRead == true" class="badge badge-success mr-2">Read</span> -->
+
+                                        <span
+                                            class="badge badge-info">  {{smartOutlook.Categories[1]}} </span>
+                                    </div>
+                                </div>
+                            </a>
+
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div *ngIf="smartSheetFirst" class="col-8 mt-1 ml-5">
+                <img src="assets/selectItemtoread.PNG" height="500" alt="">
+            </div>
+            <div *ngIf="smartSheetSecond" class="col-9">
+                <div class="col-12">
+
+                    <div class="p-1 ard" style="max-height: 100vh; overflow-y: scroll; overflow-x: hidden;">
+
+                        <div class="col-12 p-3"
+                            style="position: fixed; background: rgb(249, 250, 251); z-index: 33; margin-top: -4px;">
+                            <div class="row">
+                                <h4 class="float-left col-6"><b>{{outlookSingle.Subject}}</b></h4>
+                                <div class="float-right col-4">
+                                    <!-- <a *ngIf="this.status != 'Smartsheet'" class="cursor-pointer ml-2"
+                                        data-toggle="modal" data-target="#exampleModal"><img
+                                            src="assets/SmartsheetLogo.png" height="30" alt=""></a> -->
+                                    <!--
+                                    <span *ngIf="this.status == 'Smartsheet'"
+                                    class="badge badge-warning mt-1 ml-2">Submitted</span> -->
+                                    <div class="dropdown" *ngIf="this.status != 'Smartsheet'">
+
+                                        <a class="cursor-pointer"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/SmartsheetLogo.png" height="30" alt=""></a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                          <a class="cursor-pointer ml-2"
+                                          data-toggle="modal" data-target="#exampleModal1" class="dropdown-item" href="#">HHS Protect Ticket Tracking</a>
+                                          <a class="cursor-pointer ml-2"
+                                          data-toggle="modal" data-target="#exampleModal" class="dropdown-item" href="#">Sheet - IT Ticket Tracking with Form</a>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ard rounded" style="margin-top: 53px;">
+                            <div *ngFor="let conversationBody of conversationValue; let c = index">
+                                <div>
+                                    <div class="bg-white" style="border: 1px solid #e7e3e3;">
+                                        <div class="row p-3">
+                                            <div class="col-9">
+                                                <div>
+                                                    <span
+                                                        style="font-weight: 600;">{{conversationBody.From.EmailAddress.Name}}
+                                                        <{{conversationBody.From.EmailAddress.Address}}> <br /></span>
+                                                    <span
+                                                        style="font-size: 12px;">{{conversationBody.ReceivedDateTime | date :'short'}}
+                                                        <br /></span>
+                                                    to:<span style="color: #2e73dc;"
+                                                        *ngFor="let emailTo of conversationBody.ToRecipients">
+                                                        {{emailTo.EmailAddress.Address}}</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="p-3 bg-white mb-3" style="border: 1px solid #e7e3e3;">
+                                        <div>
+                                            <div [innerHTML]="conversationBody.Body.Content"></div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <!-- <a (click)="replyMessage(conversationBody.Id,c)" class="mr-2 text-info">Reply  |</a>  -->
+                                            <a (click)="replyAll(conversationBody.Id,c)"
+                                                class="mr-1 text-info cursor-pointer">Reply</a>
+                                        </div>
+
+                                    </div>
+
+                                    <div *ngIf="showTextArea[c]" class="p-3 bg-white mb-3"
+                                        style="border: 1px solid #e7e3e3;">
+                                        to:<span style="color: #2e73dc;">
+                                            {{outlookSingle.From.EmailAddress.Address}}</span>
+
+
+                                        <form [formGroup]="replyEmail" novalidate>
+                                            <textarea formControlName="replyMessages" class="col-12 mt-3 mb-2" name=""
+                                                id="" cols="30" rows="10"></textarea>
+                                        </form>
+                                        <a (click)="sendEmail(conversationBody.Id, c)"
+                                            class="text-info cursor-pointer mr-2"><b>Send</b></a>
+                                        <a (click)="cancelEmail(conversationBody.Id, c)"
+                                            class="text-info cursor-pointer"><b>Cancel</b></a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style="margin-top: 100px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <ul class="list-group">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Morbi leo risus</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul> -->
+
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img class="ml-3" src="assets/SmartsheetLogo.png" height="38" alt="">
+                <button id="closeModalPmdashboard" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ard border-dark" style="max-height: 400px; overflow-y: scroll;">
+                <form [formGroup]="projectSmartSheet" novalidate>
+
+                    <div class="form-group mt-2">
+                        <label class="label-class mb-1" style="font-weight: 600;">Issue Title</label>
+                        <div class="textfield-box textfield-box-sm">
+                            <span id="createdDate">{{subjectInformation}}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-class mb-1" style="font-weight: 600;">Created Date</label>
+                        <div class="textfield-box textfield-box-sm">
+                            <span id="createdDate">{{currentDate}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group ard">
+                        <label class="label-class mb-1" style="font-weight: 600;">Issue Description</label>
+                        <div class="textfield-box textfield-box-sm" style="font-size: 10px;">
+                            <div [innerHTML]="emailBody" id="issueDescription" class="form-control">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-class mb-1" style="font-weight: 600;">Request By Date</label>
+                        <div class="textfield-box textfield-box-sm">
+                            <input id="requestbyDate" formControlName="requestbyDate" aria-describedby="requestbyDate"
+                                class="form-control" id="requestbyDate" placeholder="requestbyDate" type="date">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">Assigned To</label>
+                            <select class="form-control" formControlName="assignedTo">
+                                <option *ngFor="let c of contacts" [ngValue]="c.email">{{c.name}}</option>
+                            </select></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">Ticket Status</label>
+                            <select class="form-control" formControlName="ticketStatus">
+                                <option *ngFor="let c of categoryManagement" [ngValue]="c">{{c}}</option>
+                            </select></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">Urgency</label>
+                            <select class="form-control" formControlName="urgency">
+                                <option *ngFor="let c of urgency" [ngValue]="c">{{c}}</option>
+                            </select></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="background: #2b87d856">
+                <button type="button" class="btn btn-secondary text-dark bg-white mr-2" id="closeModalPmdashboard"
+                    data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary text-white bg-success mr-2"
+                    (click)="postSmartSheetData(projectSmartSheet.value)">Save
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal 2-->
+<div class="modal fade bd-example-modal-lg" id="exampleModal1" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img class="ml-3" src="assets/SmartsheetLogo.png" height="38" alt="">
+                <button id="closeModalPmdashboard1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ard border-dark" style="max-height: 400px; overflow-y: scroll;">
+                <form [formGroup]="sheetTwo" novalidate>
+
+                    <div class="form-group mt-2">
+                        <label class="label-class mb-1" style="font-weight: 600;">Ticket Subject</label>
+                        <div class="textfield-box textfield-box-sm">
+                            <span id="createdDate">{{subjectInformation}}</span>
+                        </div>
+                    </div>
+
+
+
+                    <!-- <div class="form-group">
+                        <label class="label-class mb-1" style="font-weight: 600;">Ticket Number</label>
+                        <div class="textfield-box textfield-box-sm">
+                            <input id="ticketNumber" formControlName="ticketNumber" class="form-control" placeholder="ticketNumber" type="text">
+                        </div>
+                    </div> -->
+
+                    <div class="form-group ard">
+                        <label class="label-class mb-1" style="font-weight: 600;">Description</label>
+                        <div class="textfield-box textfield-box-sm" style="font-size: 10px;">
+                            <div [innerHTML]="emailBody" id="Description" class="form-control">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">Priority</label>
+                            <select class="form-control" formControlName="priority">
+                                <option *ngFor="let c of urgency" [ngValue]="c">{{c}}</option>
+                            </select></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">State</label>
+                            <select class="form-control" formControlName="state">
+                                <option *ngFor="let c of states" [ngValue]="c">{{c}}</option>
+                            </select></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">End User Email Address</label>
+                            <div id="endUsersEmailAddress" class="form-control">{{toEmail}}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">Assigned To</label>
+                            <select class="form-control" formControlName="assignedTo">
+                                <option *ngFor="let c of sheet2Users" [ngValue]="c.email">{{c.name}}</option>
+                            </select></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">Ticket Category</label>
+                            <select class="form-control" formControlName="ticketCategory">
+                                <option *ngFor="let c of ticketCategory" [ngValue]="c">{{c}}</option>
+                            </select></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">Ticket Status</label>
+                            <select class="form-control" formControlName="status">
+                                <option *ngFor="let c of sheet2Options" [ngValue]="c">{{c}}</option>
+                            </select></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="label-class mb-1" style="font-weight: 600;">Entry Date</label>
+                        <div class="textfield-box textfield-box-sm">
+                            <span id="createdDate">{{currentDate}}</span>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <div class="textfield-box textfield-box-sm">
+                            <label class="label-class mb-1" style="font-weight: 600;">LOE</label>
+                            <select class="form-control" formControlName="loe">
+                                <option *ngFor="let c of urgency" [ngValue]="c">{{c}}</option>
+                            </select></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="background: #2b87d856">
+                <button type="button" class="btn btn-secondary text-dark bg-white mr-2" id="closeModalPmdashboard"
+                    data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary text-white bg-success mr-2"
+                    (click)="postSmartSheetDataSecond()">Save
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>
