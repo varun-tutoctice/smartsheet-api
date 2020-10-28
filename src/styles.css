@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.text-ellipsis{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.email-body {
+background-color: white;
+}
+
+.email-body :hover{
+    background-color: #f8f4f4;
+}
+
+.email-body :active {
+    background-color: #C7E0F4;
+}
+.email-body :before {
+    background-color: #ffffff;
+}
+.email-body :after {
+    background-color: #C7E0F4;
+}
+
+.email-body :focus {
+    background-color: #C7E0F4;
+}
+
+
+
+
+
+.ard::-webkit-scrollbar {
+    width: .4em;
+  }
+  .ard::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgb(249, 250, 251);;
+    -webkit-box-shadow: inset 0 0 6px rgb(249, 250, 251);;
+  }
+  
+  .ard::-webkit-scrollbar,
+  .ard::-webkit-scrollbar-thumb {
+  overflow:visible;
+  border-radius: 4px;
+  }
+  .ard::-webkit-scrollbar-thumb {
+  background: rgba(82, 82, 82, 0.2);
+  }
+  
+
+  .fw-400 {
+    font-weight: 400;
+}
+.fw-500 {
+    font-weight: 500;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+.fw-700 {
+    font-weight: 700;
+}
+
+.label-class{
+    color: #1a355d;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
