@@ -196,30 +196,31 @@ sheet2Users = [
       this.smartService.getAccessToken().subscribe((tokenResponse) => {
         //console.log("Access Token", tokenResponse.access_token);
         this.access_token = tokenResponse.access_token;
-        this.refresh_token = tokenResponse.refresh_token;
+       // this.refresh_token = tokenResponse.refresh_token;
         // console.log("Getting Refresh Token from intitial token",this.refresh_token);
-        this.smartService
-          .getRefreshToken(this.refresh_token)
-          .subscribe((refreshToken) => {
+      //  this.smartService
+          // .getRefreshToken(this.refresh_token)
+          // .subscribe((refreshToken) => {
             // console.log("Obtained Refresh Token",refreshToken);
             this.router.navigate([`/home`]);
-            localStorage.setItem('AccessToken', refreshToken.access_token);
-            localStorage.setItem('RefreshToken', refreshToken.refresh_token);
-            this.access_token = refreshToken.access_token;
-          });
+            localStorage.setItem('AccessToken', this.access_token);
+            //localStorage.setItem('RefreshToken', refreshToken.refresh_token);
+           // this.access_token = refreshToken.access_token;
+         // });
       });
-    } else if (checkToken == undefined) {
-    //  console.log('undefined');
-      var refreshToken = localStorage.getItem('RefreshToken');
-      this.smartService
-        .getRefreshToken(refreshToken)
-        .subscribe((refreshToken) => {
-          // console.log("Obtained Refresh Token",refreshToken);
-          localStorage.setItem('AccessToken', refreshToken.access_token);
-          localStorage.setItem('RefreshToken', refreshToken.refresh_token);
-          this.access_token = refreshToken.access_token;
-        });
     }
+    // else if (checkToken == undefined) {
+    // //  console.log('undefined');
+    //   var refreshToken = localStorage.getItem('RefreshToken');
+    //   this.smartService
+    //     .getRefreshToken(refreshToken)
+    //     .subscribe((refreshToken) => {
+    //       // console.log("Obtained Refresh Token",refreshToken);
+    //       localStorage.setItem('AccessToken', refreshToken.access_token);
+    //       localStorage.setItem('RefreshToken', refreshToken.refresh_token);
+    //       this.access_token = refreshToken.access_token;
+    //     });
+    // }
 
     this.getSmartSheetData();
     this.projectSmartSheet = new FormGroup({
