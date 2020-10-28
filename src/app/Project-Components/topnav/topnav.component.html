@@ -1,0 +1,74 @@
+
+<nav class="navbar navbar-expand-lg" style="background: #2B88D8;">
+
+    <!-- <a data-target="#myNavdrawer" data-toggle="navdrawer"><i class="fa fa-bars text-white cursor-pointer" aria-hidden="true"></i></a> -->
+            <a class="navbar-brand" [routerLink]="['/home']" >
+                <img height="45" src="LogoSmartV6.png" class="d-inline-block align-top" alt="">
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a [routerLink]="['/home']" class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <!-- <li class="nav-item">
+                      <a [routerLink]="['/smartsheets/7100131184011140']" class="nav-link text-white" href="#">SmartSheet</a>
+                  </li> -->
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      SmartSheet
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a [routerLink]="['/sheet2']" class="dropdown-item" href="#">HHS Protect Ticket Tracking</a>
+                      <a [routerLink]="['/sheet1']" class="dropdown-item" href="#">Sheet - IT Ticket Tracking with Form</a>
+                      <!-- <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a> -->
+                    </div>
+                  </li>
+                  <!-- <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Pricing</a>
+                  </li> -->
+                </ul>
+                <!-- <span class="navbar-text">
+                    <a class="text-white float-right" [routerLink]="['/login']"><i style="font-size: 120%" class="fa fa-sign-out"
+                        aria-hidden="true"></i>
+                    &nbsp;<span>Logout&nbsp;</span></a>
+                </span> -->
+              </div>
+
+    <!-- <div class="float-right">
+        <a class="text-white float-right" [routerLink]="['/login']"><i style="font-size: 120%" class="fa fa-sign-out"
+                aria-hidden="true"></i>
+            &nbsp;<span>Logout&nbsp;</span></a>
+
+    </div> -->
+</nav>
+
+
+
+<div aria-hidden="true" class="navdrawer" id="myNavdrawer" tabindex="-1">
+    <div class="navdrawer-content">
+      <div class="navdrawer-header">
+        <a class="navbar-brand px-0" href="#">Navdrawer header</a>
+      </div>
+      <nav class="navdrawer-nav">
+        <a class="nav-item nav-link active" href="#">Active</a>
+        <a class="nav-item nav-link disabled" href="#">Disabled</a>
+        <a class="nav-item nav-link" href="#">Link</a>
+      </nav>
+      <div class="navdrawer-divider"></div>
+      <p class="navdrawer-subheader">Navdrawer subheader</p>
+      <ul class="navdrawer-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="#"><i class="material-icons mr-3">alarm_on</i> Active with icon</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#"><i class="material-icons mr-3">alarm_off</i> Disabled with icon</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="material-icons mr-3">link</i> Link with icon</a>
+        </li>
+      </ul>
+    </div>
+  </div>

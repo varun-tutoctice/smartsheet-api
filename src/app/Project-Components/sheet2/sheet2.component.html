@@ -1,0 +1,273 @@
+<app-topnav></app-topnav>
+
+
+
+
+<div class="col-12">
+
+    <h4 class="mt-4 ml-4 mb-3 text-info"><b>{{this.sheetName}}</b></h4>
+
+
+    <div class="col-12 ard" style="overflow-y: scroll; max-height: 100vh;">
+        <div cdkDropListGroup>
+            <div class="row">
+
+                <div class="col">
+                    <h4>Open</h4>
+
+                    <div id="Open" cdkDropList [cdkDropListData]="open" class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of open" cdkDrag>
+                            <a (click)="itemData(item)" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                <div class="col-12 p-3"
+                                    [ngClass]="{'b-red':item.cells[4].value == 'High','green-back': item.cells[4].value == 'Low', 'b-yellow': item.cells[4].value == 'Medium'}">
+                                    <span>{{item.cells[0].value}}</span> <br />
+                                    <div class="mt-3 row">
+                                        <div class="col-10">
+                                            <span
+                                                class="badge badge-light  text-ellipsis">{{item.cells[7].value}}</span>
+                                        </div>
+                                        <div class="col-2">
+                                            <span class="badge float-right"
+                                                [ngClass]="{'badge-danger':item.cells[4].value == 'High', 'badge-success': item.cells[4].value == 'Low', 'badge-warning': item.cells[4].value == 'Medium'}">{{item.cells[4].value}}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col">
+                    <h4>In Progress</h4>
+                    <a data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <div id="inProgress" cdkDropList [cdkDropListData]="inprogress" class="example-list"
+                            (cdkDropListDropped)="drop($event)">
+                            <div class="example-box" *ngFor="let item of inprogress" cdkDrag>
+                                <a (click)="itemData(item)" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                    <div class="col-12 p-3"
+                                    [ngClass]="{'b-red':item.cells[4].value == 'High','green-back': item.cells[4].value == 'Low', 'b-yellow': item.cells[4].value == 'Medium'}">
+                                    <span>{{item.cells[0].value}}</span> <br />
+                                    <div class="mt-3 row">
+                                        <div class="col-10">
+                                            <span
+                                                class="badge badge-light  text-ellipsis">{{item.cells[7].value}}</span>
+                                        </div>
+                                        <div class="col-2">
+                                            <span class="badge float-right"
+                                                [ngClass]="{'badge-danger':item.cells[4].value == 'High', 'badge-success': item.cells[4].value == 'Low', 'badge-warning': item.cells[4].value == 'Medium'}">{{item.cells[4].value}}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                </a>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <h4>Complete</h4>
+                    <a data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <div id="Complete" cdkDropList [cdkDropListData]="Complete" class="example-list"
+                            (cdkDropListDropped)="drop($event)">
+                            <div class="example-box" *ngFor="let item of Complete" cdkDrag>
+                                <a (click)="itemData(item)" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                    <div class="col-12 p-3"
+                                    [ngClass]="{'b-red':item.cells[4].value == 'High','green-back': item.cells[4].value == 'Low', 'b-yellow': item.cells[4].value == 'Medium'}">
+                                    <span>{{item.cells[0].value}}</span> <br />
+                                    <div class="mt-3 row">
+                                        <div class="col-10">
+                                            <span
+                                                class="badge badge-light  text-ellipsis">{{item.cells[7].value}}</span>
+                                        </div>
+                                        <div class="col-2">
+                                            <span class="badge float-right"
+                                                [ngClass]="{'badge-danger':item.cells[4].value == 'High', 'badge-success': item.cells[4].value == 'Low', 'badge-warning': item.cells[4].value == 'Medium'}">{{item.cells[4].value}}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="col">
+                    <h4>Closed</h4>
+                    <a data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <div id="Closed" cdkDropList [cdkDropListData]="closed" class="example-list"
+                            (cdkDropListDropped)="drop($event)">
+                            <div class="example-box" *ngFor="let item of closed" cdkDrag>
+                                <a (click)="itemData(item)" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                    <div class="col-12 p-3"
+                                    [ngClass]="{'b-red':item.cells[4].value == 'High','green-back': item.cells[4].value == 'Low', 'b-yellow': item.cells[4].value == 'Medium'}">
+                                    <span>{{item.cells[0].value}}</span> <br />
+                                    <div class="mt-3 row">
+                                        <div class="col-10">
+                                            <span
+                                                class="badge badge-light  text-ellipsis">{{item.cells[7].value}}</span>
+                                        </div>
+                                        <div class="col-2">
+                                            <span class="badge float-right"
+                                                [ngClass]="{'badge-danger':item.cells[4].value == 'High', 'badge-success': item.cells[4].value == 'Low', 'badge-warning': item.cells[4].value == 'Medium'}">{{item.cells[4].value}}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div style="margin-bottom: 700px;">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{issueTitle}}<br /></h5>
+                <button id="closeModalPmdashboard" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="sheetTwo" novalidate>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-8 ard" style="max-height: 70vh; overflow-y: scroll;">
+                                <div class="form-group">
+                                    <label class="label-class mb-1" style="font-weight: 600;">Description</label>
+                                    <div class="textfield-box textfield-box-sm">
+
+                                        <div id="issueDescription" [innerHTML]="this.emailBody" class="form-control"
+                                            id="issueDescription">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 ard" style="max-height: 70vh; overflow-y: scroll;">
+
+
+                                <div class="form-group">
+                                    <div class="textfield-box textfield-box-sm">
+                                        <label class="label-class mb-1" style="font-weight: 600;">Priority</label>
+                                        <select class="form-control" formControlName="priority">
+                                            <option *ngFor="let c of urgency" [ngValue]="c">{{c}}</option>
+                                        </select></div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="textfield-box textfield-box-sm">
+                                        <label class="label-class mb-1" style="font-weight: 600;">State</label>
+                                        <select class="form-control" formControlName="state">
+                                            <option *ngFor="let c of states" [ngValue]="c">{{c}}</option>
+                                        </select></div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="textfield-box textfield-box-sm">
+                                        <label class="label-class mb-1" style="font-weight: 600;">End User Email Address</label>
+                                        <div id="endUsersEmailAddress" class="form-control">{{issueCreatedBy}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="textfield-box textfield-box-sm">
+                                        <label class="label-class mb-1" style="font-weight: 600;">Assigned To</label>
+                                        <select class="form-control" formControlName="assignedTo">
+                                            <option *ngFor="let c of sheet2Users" [ngValue]="c.email">{{c.name}}</option>
+                                        </select></div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="textfield-box textfield-box-sm">
+                                        <label class="label-class mb-1" style="font-weight: 600;">Ticket Category</label>
+                                        <select class="form-control" formControlName="ticketCategory">
+                                            <option *ngFor="let c of ticketCategory" [ngValue]="c">{{c}}</option>
+                                        </select></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="textfield-box textfield-box-sm">
+                                        <label class="label-class mb-1" style="font-weight: 600;">Ticket Status</label>
+                                        <select class="form-control" formControlName="status">
+                                            <option *ngFor="let c of sheet2Options" [ngValue]="c">{{c}}</option>
+                                        </select></div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="label-class mb-1" style="font-weight: 600;">Entry Date</label>
+                                    <div class="textfield-box textfield-box-sm">
+                                        <span id="createdDate">{{this.issueCreatedDate}}</span>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+                                <div class="form-group">
+                                    <div class="textfield-box textfield-box-sm">
+                                        <label class="label-class mb-1" style="font-weight: 600;">LOE</label>
+                                        <select class="form-control" formControlName="loe">
+                                            <option *ngFor="let c of urgency" [ngValue]="c">{{c}}</option>
+                                        </select></div>
+                                </div>
+
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary bg-dark text-white" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary bg-success text-white"
+                    (click)="saveSmartData()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

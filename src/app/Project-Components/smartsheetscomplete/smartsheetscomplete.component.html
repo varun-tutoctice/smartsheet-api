@@ -1,0 +1,28 @@
+<app-topnav></app-topnav>
+<form [formGroup]="projectSmartSheet" novalidate>
+    <div class="col-12">
+        <div class="row mt-4 ml-4 mb-3 ">
+            <div class="col-9">
+                <h4 class="text-info"><b>{{this.sheetName}}</b></h4>
+            </div>
+
+            <div class="col-3" style="margin-top: -10px;">
+                <div class="form-group">
+                    <select (change)="filterMethods()" class="form-control" formControlName="filterValue">
+                        <option *ngFor="let c of filterManagement" [ngValue]="c">{{c.title}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- <div class="col-12 ard" style="overflow-y: scroll; max-height: 100vh;">
+            <div cdkDropListGroup>
+                <div cdkDropList [cdkDropListData]="arrayName" *ngFor="let arrayName of this.projectSmartSheet.get('filterValue').value.options" (cdkDropListDropped)="drop($event)">
+                    <h4>{{arrayName.split(" ").join("")}} {{i}}</h4>
+                    <div cdkDrag [cdkDragData]="item" *ngFor="let item of arrayName"></div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</form>
