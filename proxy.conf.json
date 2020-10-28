@@ -1,0 +1,19 @@
+{
+    "/sm/smart": {
+      "target": "https://api.smartsheet.com/2.0",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/sm/smart": ""
+      }
+    },
+
+    "/ma/mail": {
+        "target": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+          "^/ma/mail": ""
+        }
+      }
+  }
