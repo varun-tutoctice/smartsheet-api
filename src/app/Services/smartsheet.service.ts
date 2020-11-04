@@ -50,7 +50,7 @@ export class SmartsheetService {
   }
 
 
-  getOutlookEmail(a_token) {
+  getOutlookEmail(a_token, skipValue) {
   // console.log(a_token);
     const options = {
       headers: new HttpHeaders({ "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export class SmartsheetService {
   //     catchError(this.handleError)
   //  );
 
-  return this.http.get(`https://outlook.office.com/api/v2.0/me/MailFolders/inbox/messages?$filter=InferenceClassification eq 'Focused'&$orderby=InferenceClassification desc&$top=40`, options).pipe(
+  return this.http.get(`https://outlook.office.com/api/v2.0/me/MailFolders/inbox/messages?$filter=InferenceClassification eq 'Focused'&$orderby=InferenceClassification desc&$top=10&skip=${skipValue}`, options).pipe(
     map(response => JSON.parse(JSON.stringify(response))),
     catchError(this.handleError)
  );

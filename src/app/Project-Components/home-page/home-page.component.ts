@@ -1,5 +1,5 @@
 import { SmartsheetService } from './../../Services/smartsheet.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , HostListener, Directive } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import {
   FormGroup,
@@ -16,7 +16,11 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css'],
 })
+
+
+
 export class HomePageComponent implements OnInit {
+  @HostListener('scroll', ['$event'])
   outlookResponse;
   outlookResponseValue;
   categoryManagement = ['Not Started', 'In Progress', 'Resolved'];
@@ -136,6 +140,7 @@ sheet2Users = [
   bodyPreview;
   singleId;
   status;
+  skipValue = 0;
   dd = String(this.today.getDate()).padStart(2, '0');
   mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
   yyyy = this.today.getFullYear();
@@ -145,6 +150,7 @@ sheet2Users = [
   indexFrom;
   dataId;
   sheetTwo;
+  outlookEmailsArray = [];
   // date = this.today.getFullYear()+'-'+(this.today.getMonth()+1)+'-'+this.today.getDate();
 
   // time = this.today.getHours() + ":" + this.today.getMinutes() + ":" + this.today.getSeconds();
@@ -175,13 +181,14 @@ sheet2Users = [
         //     localStorage.setItem('AccessToken', refreshToken.access_token);
         //     localStorage.setItem('RefreshToken', refreshToken.refresh_token);
         //     this.access_token = refreshToken.access_token;
-            this.smartService
-              .getOutlookEmail(this.access_token)
-              .subscribe((response) => {
-                this.outlookResponse = response;
-                this.outlookResponseValue = response.value;
-                //  console.log("Output from Outlook", response);
-              });
+            // this.smartService
+            //   .getOutlookEmail(this.access_token, this.skipValue)
+            //   .subscribe((response) => {
+            //     this.outlookResponse = response;
+            //     this.outlookResponseValue = response.value;
+            //     //  console.log("Output from Outlook", response);
+            //   });
+            this.getOutlookEmails(this.access_token, this.skipValue);
           });
       // });
     // } else if (checkToken == undefined) {
@@ -203,6 +210,9 @@ sheet2Users = [
     //         });
     //     });
     // }
+
+
+
 
     this.projectSmartSheet = new FormGroup({
       createdDate: new FormControl(''),
@@ -234,6 +244,26 @@ sheet2Users = [
     this.replyEmail = new FormGroup({
       replyMessages: new FormControl(''),
     });
+  }
+
+
+  getOutlookEmails(accessToken, skipVal){
+    this.smartService
+    .getOutlookEmail(accessToken, skipVal)
+    .subscribe((response) => {
+      this.outlookResponse = response;
+      this.outlookResponseValue = response.value;
+      console.log(this.outlookResponseValue);
+      for(let val in this.outlookResponseValue) {
+        const emailvalue = this.outlookResponseValue[val];
+
+        this.outlookEmailsArray.push(emailvalue);
+      }
+
+
+      console.log("Output from Outlook", this.outlookEmailsArray);
+    });
+
   }
   retrieveEmailInfo(ConversationId, id) {
     this.conversationId = ConversationId;
@@ -284,6 +314,20 @@ sheet2Users = [
     var x = document.getElementById('closeModalPmdashboard').click();
     return x;
   }
+
+
+  onScroll(event: any) {
+    // visible height + pixel scrolled >= total height
+    if(event.target.scrollTop == 0){
+      console.log("top");
+    };
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      console.log("End", this.outlookEmailsArray["length"]);
+      var length = this.outlookEmailsArray["length"]
+
+  this.getOutlookEmails(this.access_token, length+10);
+    }
+}
 
 
   postSmartSheetDataSecond(){

@@ -3,8 +3,8 @@
     <div class="col-12">
         <div class="row">
             <div class="col-3">
-                <div class="ard shadow-1" style="overflow-y: scroll; max-height: 100vh;">
-                    <ul class="list-group" *ngFor="let smartOutlook of outlookResponseValue">
+                <div class="ard shadow-1" (scroll)="onScroll($event)" style="overflow-y: scroll; max-height: 100vh;">
+                    <ul class="list-group" *ngFor="let smartOutlook of outlookEmailsArray">
                         <li class="list-group-items list-group-item-action"
                             [ngClass]="{'b-left':smartOutlook.IsRead == false, 'b-none': smartOutlook.IsRead == true}">
                             <a (click)="retrieveEmailInfo(smartOutlook.ConversationId,smartOutlook.Id)"
