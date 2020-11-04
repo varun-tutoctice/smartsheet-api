@@ -74,7 +74,7 @@ refresh_token;
 
     var checkToken = this.route.snapshot.queryParams.code;
     //  console.log("checkingToken",checkToken);
-    if (checkToken != undefined) {
+  //  if (checkToken != undefined) {
   //    console.log('defined');
       this.smartService.getAccessToken().subscribe((tokenResponse) => {
         //console.log("Access Token", tokenResponse.access_token);
@@ -85,13 +85,13 @@ refresh_token;
        //   .getRefreshToken(this.refresh_token)
        //   .subscribe((refreshToken) => {
             // console.log("Obtained Refresh Token",refreshToken);
-            this.router.navigate([`/home`]);
-            localStorage.setItem('AccessToken', this.access_token);
+       //     this.router.navigate([`/home`]);
+       //     localStorage.setItem('AccessToken', this.access_token);
             // localStorage.setItem('RefreshToken', refreshToken.refresh_token);
             // this.access_token = refreshToken.access_token;
           });
     //  });
-    }
+   // }
 
     // else if (checkToken == undefined) {
     // //  console.log('undefined');
